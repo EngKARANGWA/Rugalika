@@ -1,0 +1,45 @@
+.Header{
+   display: flex
+}
+.Header h1{
+    background-color: #3F2D2D
+  
+}
+.Header h1{
+    color: #FFFFFF
+}
+.Header h1{
+    margin-left: 100px;
+    height: 59px;
+    width: 952px;
+}
+.Header img{
+    width: 90px;
+    height: 95px;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+.subHeader{
+    width: 100%;
+    color: #FFFFFF;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+}
+.subHeader::before{
+    content: 'Advertising here';
+    position: absolute;
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee 10s linear infinite;
+}
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

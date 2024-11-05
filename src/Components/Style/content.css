@@ -1,0 +1,131 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .pics {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    display: block;
+    position: relative;
+  }
+  
+  .pics img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .gallery .pics{
+    -webkit-transition: all 350ms ease;
+    transition: all 350ms ease;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .gallery .pics{
+    filter: opacity(.8);
+}
+  @media(max-width: 991px) {
+    .gallery{
+        -webkit-column: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+    }
+    
+  }
+  @media(max-width: 480px) {
+    .gallery{
+        -webkit-column: 3;
+        -moz-column-count: 3;
+        column-count: 3;
+        -webkit-column-width: 33%;
+        -moz-column-count: 33%;
+        column-width: 33%;
+    }
+    
+  }
+  .model {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8); /* Adjust background for overlay effect */
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.5s ease-in-out;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0);
+    overflow: hidden;
+    z-index: 999;
+  }
+  
+  .model.open {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .model img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    display: block;
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 0 auto;
+  }
+  
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .pics {
+    flex: 1 0 21%; /* Adjust the flex-basis as needed */
+    margin: 5px;
+  }
+  
+  .pics img {
+    width: 100%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .pics img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+  }
+
+  .model-content {
+    color: #FFFFFF;
+    position: relative;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+  }
+  .model {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  .model.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  

@@ -1,0 +1,14 @@
+.navbar{
+    background-color: #3F2D2D;
+}
+.navbar a{
+    color: #FFFFFF;
+padding: 30px;
+font-size: 30px;
+text-decoration: none;
+}
+.navbar a:hover{
+    font-size: 32px;
+    color: rgb(184, 177, 168);
+
+}
