@@ -1,0 +1,226 @@
+.ubufasha-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+}
+
+.ubufasha-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.ubufasha-header h1 {
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.ubufasha-header p {
+  color: #000;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.help-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.help-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.help-card:hover {
+  transform: translateY(-5px);
+}
+
+.help-icon {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.help-card h3 {
+  color: #000;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.help-card p {
+  color: #000;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.help-button {
+  background: white;
+  color: #3182ce;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.help-button:hover {
+  background: #3182ce;
+  color: white;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  color: #000;
+  font-weight: bold;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #718096;
+  cursor: pointer;
+}
+
+.help-form {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: #000;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.form-actions {
+  margin-top: 2rem;
+}
+
+.submit-button {
+  width: 100%;
+  background: white;
+  color: #3182ce;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #2c5282;
+  color:white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ubufasha-container {
+    padding: 1rem;
+  }
+
+  .ubufasha-header h1 {
+    font-size: 2rem;
+  }
+
+  .help-categories {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .ubufasha-container {
+    background: linear-gradient(to bottom, white, white);
+  }
+
+  .help-card,
+  .modal-content {
+    background: #3182ce;
+  }
+
+  .help-card h3,
+  .modal-header h2 {
+    color: #f7fafc;
+  }
+
+  .help-card p {
+    color: #e2e8f0;
+  }
+
+  .form-group label {
+    color: #f7fafc;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: #3182ce;
+    border-color: #000;
+    color: #000;
+  }
+} 

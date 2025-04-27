@@ -1,5 +1,9 @@
 .Header{
-   display: flex
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 1rem 2rem;
+   background-color: #fff;
 }
 .Header h1{
     background-color: #3F2D2D
@@ -12,6 +16,7 @@
     margin-left: 100px;
     height: 59px;
     width: 952px;
+    font-size: 40px;
 }
 .Header img{
     width: 90px;
@@ -28,6 +33,10 @@
     box-sizing: border-box;
     width: 100%;
 }
+.subHeader h1{
+  margin-top: 30px;
+  font-size: 30px;
+}
 .subHeader::before{
     content: 'Advertising here';
     position: absolute;
@@ -42,4 +51,49 @@
     100% {
         transform: translateX(-100%);
     }
+}
+.logo-container {
+  flex: 0 0 auto;
+}
+
+.logo-container img {
+  height: 60px;
+  width: auto;
+}
+
+.login-container {
+  flex: 0 0 auto;
+}
+
+.login-button {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.login-button:hover {
+  background-color: #5a52d5;
+  transform: translateY(-2px);
+}
+
+.login-button:active {
+  transform: translateY(0);
+}
+
+/* Keep your existing styles and add media queries if needed */
+@media (max-width: 768px) {
+  .Header {
+    padding: 1rem;
+  }
+
+  .login-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }

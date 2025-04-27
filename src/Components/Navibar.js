@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Style/Navbar.css'
+import { Link } from 'react-router-dom';
+import './Style/Navbar.css';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,13 +11,18 @@ function Navbar() {
 
   return (
     <nav className="navbar">
+      <button className="navbar-burger" onClick={toggleMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <div className={`navbar-menu ${isOpen ? 'is-active' : ''}`}>
-        <a href="/" className="navbar-item">UBUREZI</a>
-        <a href="/about" className="navbar-item">UBUKUNGU</a>
-        <a href="/contact" className="navbar-item">UBUZIMA</a>
-        <a href="/contact" className="navbar-item">AMATANGAZO</a>
-        <a href="/contact" className="navbar-item">UBUFASHA</a>
-        <a href="/contact" className="navbar-item">IBITEKEREZO</a>
+        <Link to="Education" className="navbar-item">UBUREZI</Link>
+        <Link to="Commercial" className="navbar-item">UBUKUNGU</Link>
+        <Link to="Health" className="navbar-item">UBUZIMA</Link>
+        <Link to="Announcement" className="navbar-item">AMATANGAZO</Link>
+        <Link to="Ubufasha" className="navbar-item">UBUFASHA</Link>
+        <Link to="Ibitekerezo" className="navbar-item">IBITEKEREZO</Link>
       </div>
     </nav>
   );

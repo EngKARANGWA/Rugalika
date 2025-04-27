@@ -1,0 +1,214 @@
+.education-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f0f7ff, #ffffff);
+  padding: 3rem 1rem;
+}
+
+.education-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.education-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.education-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 1rem;
+}
+
+.education-header p {
+  font-size: 1.125rem;
+  color: #000;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  display: flex;
+  justify-content: center;
+  color: #2563eb;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.stat-title {
+  text-align: center;
+  color: #000;
+}
+
+.schools-section {
+  margin-bottom: 4rem;
+}
+
+.schools-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+  margin-bottom: 2rem;
+}
+
+.schools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.school-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.school-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.school-content {
+  padding: 1.5rem;
+}
+
+.school-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.school-type {
+  display: inline-block;
+  background: #ebf5ff;
+  color: #000;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.school-description {
+  color: #4a5568;
+  margin-bottom: 1rem;
+}
+
+.school-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.school-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #000;
+}
+
+.school-location {
+  padding: 1rem 1.5rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4a5568;
+}
+
+.programs-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.program-card {
+  padding: 1.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.program-card:hover {
+  border-color: #2563eb;
+}
+
+.program-icon {
+  width: 3rem;
+  height: 3rem;
+  background: #ebf5ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: #2563eb;
+}
+
+.program-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.program-description {
+  text-align: center;
+  color: #000;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .education-header h1 {
+    font-size: 2rem;
+  }
+  
+  .schools-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

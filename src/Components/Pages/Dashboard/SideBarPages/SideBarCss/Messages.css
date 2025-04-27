@@ -1,0 +1,272 @@
+.messages-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+  height: calc(100vh - 180px);
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.messages-sidebar {
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.messages-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #1f2937;
+}
+
+.message-count {
+  background: #e0e7ff;
+  color: #6366f1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.messages-list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.message-item {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.message-item:hover {
+  background: #f9fafb;
+}
+
+.message-item.unread {
+  background: #f3f4f6;
+}
+
+.message-item.selected {
+  background: #e0e7ff;
+}
+
+.message-icon {
+  color: #6b7280;
+  font-size: 1.25rem;
+}
+
+.message-preview {
+  flex: 1;
+  min-width: 0;
+}
+
+.message-sender {
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.message-subject {
+  color: #4b5563;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.message-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.message-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.selected-message {
+  max-width: 800px;
+}
+
+.message-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.message-info h3 {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  font-size: 1.5rem;
+}
+
+.message-info p {
+  margin: 0.25rem 0;
+  color: #4b5563;
+}
+
+.message-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.reply-btn,
+.delete-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reply-btn {
+  background: #6366f1;
+  color: white;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.reply-btn:hover,
+.delete-btn:hover {
+  transform: translateY(-1px);
+}
+
+.message-body {
+  color: #1f2937;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.message-replies {
+  margin-top: 2rem;
+}
+
+.message-replies h4 {
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.reply {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.reply.admin-reply {
+  background: #e0e7ff;
+}
+
+.reply p {
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+}
+
+.reply-date {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.reply-form {
+  margin-top: 2rem;
+}
+
+.reply-form textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.reply-form textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+.reply-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.reply-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reply-actions button[type="button"] {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.reply-actions button[type="submit"] {
+  background: #6366f1;
+  color: white;
+}
+
+.reply-actions button:hover {
+  transform: translateY(-1px);
+}
+
+.no-message-selected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6b7280;
+  font-size: 1.25rem;
+}
+
+.no-message-selected svg {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .messages-container {
+    grid-template-columns: 1fr;
+  }
+
+  .messages-sidebar {
+    display: none;
+  }
+
+  .messages-sidebar.active {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+  }
+} 

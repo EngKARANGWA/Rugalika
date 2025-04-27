@@ -1,0 +1,257 @@
+.igitekerezo-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #f0f9ff, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.card-header {
+  margin-bottom: 2rem;
+}
+
+.card-header h1 {
+  font-size: 2.5rem;
+  color: #1a365d;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.card-header p {
+  color: #4a5568;
+  font-size: 1.1rem;
+}
+
+.contact-info {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+  color: #3182ce;
+  flex-shrink: 0;
+}
+
+.info-item h3 {
+  color: #2d3748;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.info-item p {
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #3182ce;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.contact-button:hover {
+  background: #2c5282;
+  transform: translateY(-2px);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #718096;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #e53e3e;
+}
+
+/* Form Styles */
+.contact-form {
+  padding: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group textarea {
+  height: 150px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3182ce;
+}
+
+.submit-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #3182ce;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #2c5282;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .igitekerezo-container {
+    padding: 1rem;
+  }
+
+  .card-header h1 {
+    font-size: 2rem;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .igitekerezo-container {
+    background: linear-gradient(to bottom, #1a202c, #2d3748);
+  }
+
+  .contact-card,
+  .modal-content {
+    background: #2d3748;
+  }
+
+  .card-header h1 {
+    color: #f7fafc;
+  }
+
+  .card-header p,
+  .info-item p {
+    color: #e2e8f0;
+  }
+
+  .info-item {
+    background: #1a202c;
+  }
+
+  .info-item h3 {
+    color: #f7fafc;
+  }
+
+  .form-group label {
+    color: #f7fafc;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: #1a202c;
+    border-color: #4a5568;
+    color: #f7fafc;
+  }
+
+  .modal-header {
+    border-color: #4a5568;
+  }
+} 
