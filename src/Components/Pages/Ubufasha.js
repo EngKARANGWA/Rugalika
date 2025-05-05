@@ -4,7 +4,7 @@
 
 import "./pages css/Help.css";
 import React, { useState } from "react";
-import { FaHandHoldingHeart, FaGraduationCap, FaHospital, FaHome, FaTimes, FaTree,  FaBookReader } from 'react-icons/fa';
+import { FaHandHoldingHeart, FaGraduationCap, FaHospital, FaHome, FaTimes, FaTree,  FaBookReader, FaHatCowboy } from 'react-icons/fa';
 import './ubufasha.css';
 
 const Ubufasha = () => {
@@ -18,6 +18,11 @@ const Ubufasha = () => {
     });
 
     const helpCategories = [
+        {
+            icon: <FaHatCowboy />,
+            title: "Ibikorwa by’ubworozi byose muri Rusange.",
+            description: "Muhawe ikaze muri service z’ubworozi mu Murenge wa Rugalika."
+        },
         {
             icon: <FaHandHoldingHeart />,
             title: "Ubufasha bw'Imibereho",
