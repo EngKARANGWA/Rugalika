@@ -1,179 +1,207 @@
-import React, { useState } from 'react';
-import { FaReply, FaTrash, FaEnvelope, FaEnvelopeOpen } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaEnvelope, FaPhone, FaUser, FaCalendarAlt, FaInfoCircle, FaSpinner } from 'react-icons/fa';
 import './SideBarCss/Messages.css';
 
 const Messages = () => {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: "John Doe",
-      email: "john@example.com",
-      subject: "Land Registration Query",
-      message: "I need information about land registration process.",
-      date: "2024-03-20",
-      isRead: false,
-      replies: []
-    },
-    {
-      id: 2,
-      sender: "Jane Smith",
-      email: "jane@example.com",
-      subject: "Building Permit",
-      message: "How can I apply for a building permit?",
-      date: "2024-03-19",
-      isRead: true,
-      replies: [
-        {
-          id: 1,
-          message: "Please visit our office with your documents.",
-          date: "2024-03-19",
-          isAdmin: true
+    const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [filter, setFilter] = useState('all'); // 'all', 'unread', 'read'
+    const [updatingId, setUpdatingId] = useState(null);
+
+    // Fetch initial messages
+    useEffect(() => {
+        fetchMessages();
+    }, []);
+
+    // Watch for message status changes and update backend
+    useEffect(() => {
+        const updateBackend = async (messageId, newStatus) => {
+            try {
+                setUpdatingId(messageId);
+                const response = await fetch(`http://localhost:5000/api/help/update/${messageId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const result = await response.json();
+                
+                if (!result.success) {
+                    throw new Error('Failed to update message status');
+                }
+            } catch (err) {
+                console.error('Error updating message status:', err);
+                setError('Failed to update message status. Please try again.');
+                // Revert the local state change
+                setMessages(prevMessages => 
+                    prevMessages.map(msg => 
+                        msg._id === messageId
+                            ? { ...msg, status: msg.status === 'read' ? 'unread' : 'read' }
+                            : msg
+                    )
+                );
+            } finally {
+                setUpdatingId(null);
+            }
+        };
+
+        // Find any messages that need to be updated
+        messages.forEach(message => {
+            if (message.status === 'read' && !updatingId) {
+                updateBackend(message._id, 'read');
+            }
+        });
+    }, [messages, updatingId]);
+
+    const fetchMessages = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/help');
+            const result = await response.json();
+            
+            if (result.success) {
+                setMessages(result.data);
+            } else {
+                setError('Failed to fetch messages');
+            }
+        } catch (err) {
+            setError('Error fetching messages: ' + err.message);
+        } finally {
+            setLoading(false);
         }
-      ]
-    }
-  ]);
-
-  const [selectedMessage, setSelectedMessage] = useState(null);
-  const [replyText, setReplyText] = useState('');
-  const [showReplyForm, setShowReplyForm] = useState(false);
-
-  const handleMessageClick = (message) => {
-    setSelectedMessage(message);
-    if (!message.isRead) {
-      setMessages(messages.map(msg => 
-        msg.id === message.id ? { ...msg, isRead: true } : msg
-      ));
-    }
-    setShowReplyForm(false);
-  };
-
-  const handleReply = (e) => {
-    e.preventDefault();
-    if (!replyText.trim()) return;
-
-    const newReply = {
-      id: selectedMessage.replies.length + 1,
-      message: replyText,
-      date: new Date().toISOString().split('T')[0],
-      isAdmin: true
     };
 
-    setMessages(messages.map(msg => 
-      msg.id === selectedMessage.id 
-        ? { ...msg, replies: [...msg.replies, newReply] }
-        : msg
-    ));
+    const handleMessageClick = (messageId) => {
+        setMessages(prevMessages => 
+            prevMessages.map(msg => 
+                msg._id === messageId && msg.status === 'unread'
+                    ? { ...msg, status: 'read' }
+                    : msg
+            )
+        );
+    };
 
-    setReplyText('');
-    setShowReplyForm(false);
-    setSelectedMessage({ ...selectedMessage, replies: [...selectedMessage.replies, newReply] });
-  };
+    const filteredMessages = messages.filter(message => {
+        if (filter === 'all') return true;
+        return message.status === filter;
+    });
 
-  const handleDelete = (messageId) => {
-    if (window.confirm('Are you sure you want to delete this message?')) {
-      setMessages(messages.filter(msg => msg.id !== messageId));
-      if (selectedMessage?.id === messageId) {
-        setSelectedMessage(null);
-      }
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <FaSpinner className="spinner" />
+                <p>Loading messages...</p>
+            </div>
+        );
     }
-  };
 
-  return (
-    <div className="messages-container">
-      <div className="messages-sidebar">
-        <div className="messages-header">
-          <h2>Messages</h2>
-          <span className="message-count">
-            {messages.filter(msg => !msg.isRead).length} unread
-          </span>
-        </div>
-        <div className="messages-list">
-          {messages.map(message => (
-            <div
-              key={message.id}
-              className={`message-item ${!message.isRead ? 'unread' : ''} ${selectedMessage?.id === message.id ? 'selected' : ''}`}
-              onClick={() => handleMessageClick(message)}
-            >
-              <div className="message-icon">
-                {message.isRead ? <FaEnvelopeOpen /> : <FaEnvelope />}
-              </div>
-              <div className="message-preview">
-                <div className="message-sender">{message.sender}</div>
-                <div className="message-subject">{message.subject}</div>
-                <div className="message-date">{message.date}</div>
-              </div>
+    if (error) {
+        return (
+            <div className="error-container">
+                <FaInfoCircle className="error-icon" />
+                <p>{error}</p>
             </div>
-          ))}
-        </div>
-      </div>
+        );
+    }
 
-      <div className="message-content">
-        {selectedMessage ? (
-          <div className="selected-message">
-            <div className="message-header">
-              <div className="message-info">
-                <h3>{selectedMessage.subject}</h3>
-                <p>From: {selectedMessage.sender} ({selectedMessage.email})</p>
-                <p>Date: {selectedMessage.date}</p>
-              </div>
-              <div className="message-actions">
-                <button 
-                  className="reply-btn"
-                  onClick={() => setShowReplyForm(true)}
-                >
-                  <FaReply /> Reply
-                </button>
-                <button 
-                  className="delete-btn"
-                  onClick={() => handleDelete(selectedMessage.id)}
-                >
-                  <FaTrash /> Delete
-                </button>
-              </div>
-            </div>
-
-            <div className="message-body">
-              <p>{selectedMessage.message}</p>
-            </div>
-
-            {selectedMessage.replies.length > 0 && (
-              <div className="message-replies">
-                <h4>Replies</h4>
-                {selectedMessage.replies.map(reply => (
-                  <div key={reply.id} className={`reply ${reply.isAdmin ? 'admin-reply' : ''}`}>
-                    <p>{reply.message}</p>
-                    <span className="reply-date">{reply.date}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {showReplyForm && (
-              <form onSubmit={handleReply} className="reply-form">
-                <textarea
-                  value={replyText}
-                  onChange={(e) => setReplyText(e.target.value)}
-                  placeholder="Type your reply..."
-                  required
-                />
-                <div className="reply-actions">
-                  <button type="button" onClick={() => setShowReplyForm(false)}>
-                    Cancel
-                  </button>
-                  <button type="submit">Send Reply</button>
+    return (
+        <div className="messages-container">
+            <div className="messages-header">
+                <h1>Help Requests</h1>
+                <div className="filter-buttons">
+                    <button 
+                        className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+                        onClick={() => setFilter('all')}
+                    >
+                        All
+                    </button>
+                    <button 
+                        className={`filter-btn ${filter === 'unread' ? 'active' : ''}`}
+                        onClick={() => setFilter('unread')}
+                    >
+                        Unread
+                    </button>
+                    <button 
+                        className={`filter-btn ${filter === 'read' ? 'active' : ''}`}
+                        onClick={() => setFilter('read')}
+                    >
+                        Read
+                    </button>
                 </div>
-              </form>
-            )}
-          </div>
-        ) : (
-          <div className="no-message-selected">
-            <FaEnvelope />
-            <p>Select a message to read</p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+            </div>
+
+            <div className="messages-stats">
+                <div className="stat-card">
+                    <FaEnvelope className="stat-icon" />
+                    <div className="stat-info">
+                        <h3>Total Requests</h3>
+                        <p>{messages.length}</p>
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <FaEnvelope className="stat-icon unread" />
+                    <div className="stat-info">
+                        <h3>Unread</h3>
+                        <p>{messages.filter(m => m.status === 'unread').length}</p>
+                    </div>
+                </div>
+                <div className="stat-card">
+                    <FaEnvelope className="stat-icon read" />
+                    <div className="stat-info">
+                        <h3>Read</h3>
+                        <p>{messages.filter(m => m.status === 'read').length}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="messages-list">
+                {filteredMessages.map((message) => (
+                    <div 
+                        key={message._id} 
+                        className={`message-card ${message.status === 'unread' ? 'unread' : ''} ${updatingId === message._id ? 'updating' : ''}`}
+                        onClick={() => message.status === 'unread' && handleMessageClick(message._id)}
+                    >
+                        <div className="message-header">
+                            <div className="message-title">
+                                <FaUser className="message-icon" />
+                                <h3>{message.name}</h3>
+                            </div>
+                            <span className={`status ${message.status}`}>
+                                {updatingId === message._id ? (
+                                    <FaSpinner className="status-spinner" />
+                                ) : (
+                                    message.status
+                                )}
+                            </span>
+                        </div>
+                        <div className="message-details">
+                            <div className="detail-item">
+                                <FaPhone className="detail-icon" />
+                                <p><strong>Phone:</strong> {message.phone}</p>
+                            </div>
+                            <div className="detail-item">
+                                <FaEnvelope className="detail-icon" />
+                                <p><strong>Email:</strong> {message.email}</p>
+                            </div>
+                            <div className="detail-item">
+                                <FaInfoCircle className="detail-icon" />
+                                <p><strong>Type:</strong> {message.ubwoko}</p>
+                            </div>
+                            <div className="detail-item description">
+                                <p><strong>Description:</strong> {message.description}</p>
+                            </div>
+                            <div className="detail-item">
+                                <FaCalendarAlt className="detail-icon" />
+                                <p><strong>Date:</strong> {new Date(message.createdAt).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default Messages; 

@@ -20,8 +20,8 @@ const Ubufasha = () => {
     const helpCategories = [
         {
             icon: <FaHatCowboy />,
-            title: "Ibikorwa by’ubworozi byose muri Rusange.",
-            description: "Muhawe ikaze muri service z’ubworozi mu Murenge wa Rugalika."
+            title: "Ibikorwa by'ubworozi byose muri Rusange.",
+            description: "Muhawe ikaze muri service z'ubworozi mu Murenge wa Rugalika."
         },
         {
             icon: <FaHandHoldingHeart />,
@@ -55,11 +55,37 @@ const Ubufasha = () => {
         }
     ];
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log(formData);
-        setIsModalOpen(false);
+        try {
+            const response = await fetch('http://localhost:5000/api/help', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                // Clear form and close modal on success
+                setFormData({
+                    name: '',
+                    phone: '',
+                    email: '',
+                    ubwoko: '',
+                    description: ''
+                });
+                setIsModalOpen(false);
+                alert('Your help request has been submitted successfully!');
+            } else {
+                throw new Error(result.message || 'Failed to submit help request');
+            }
+        } catch (error) {
+            console.error('Error submitting help request:', error);
+            alert('Failed to submit help request. Please try again.');
+        }
     };
 
     const handleInputChange = (e) => {
