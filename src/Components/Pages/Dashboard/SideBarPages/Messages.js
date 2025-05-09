@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaPhone, FaUser, FaCalendarAlt, FaInfoCircle, FaSpinner } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaUser, FaCalendarAlt, FaInfoCircle, FaSpinner, FaReply, FaTimes } from 'react-icons/fa';
 import './SideBarCss/Messages.css';
 
 const Messages = () => {
@@ -8,6 +8,9 @@ const Messages = () => {
     const [error, setError] = useState(null);
     const [filter, setFilter] = useState('all'); // 'all', 'unread', 'read'
     const [updatingId, setUpdatingId] = useState(null);
+    const [replyModalOpen, setReplyModalOpen] = useState(false);
+    const [selectedMessage, setSelectedMessage] = useState(null);
+    const [replyText, setReplyText] = useState('');
 
     // Fetch initial messages
     useEffect(() => {
@@ -81,6 +84,41 @@ const Messages = () => {
                     : msg
             )
         );
+    };
+
+    const handleReply = async (messageId) => {
+        const message = messages.find(m => m._id === messageId);
+        setSelectedMessage(message);
+        setReplyModalOpen(true);
+    };
+
+    const handleReplySubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:5000/api/help/reply/${selectedMessage._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ reply: replyText })
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                setReplyModalOpen(false);
+                setReplyText('');
+                setSelectedMessage(null);
+                // Refresh messages to show the reply
+                fetchMessages();
+                alert('Reply sent successfully!');
+            } else {
+                throw new Error(result.message || 'Failed to send reply');
+            }
+        } catch (error) {
+            console.error('Error sending reply:', error);
+            alert('Failed to send reply. Please try again.');
+        }
     };
 
     const filteredMessages = messages.filter(message => {
@@ -168,13 +206,24 @@ const Messages = () => {
                                 <FaUser className="message-icon" />
                                 <h3>{message.name}</h3>
                             </div>
-                            <span className={`status ${message.status}`}>
-                                {updatingId === message._id ? (
-                                    <FaSpinner className="status-spinner" />
-                                ) : (
-                                    message.status
-                                )}
-                            </span>
+                            <div className="message-actions">
+                                <span className={`status ${message.status}`}>
+                                    {updatingId === message._id ? (
+                                        <FaSpinner className="status-spinner" />
+                                    ) : (
+                                        message.status
+                                    )}
+                                </span>
+                                <button 
+                                    className="reply-button"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleReply(message._id);
+                                    }}
+                                >
+                                    <FaReply /> Reply
+                                </button>
+                            </div>
                         </div>
                         <div className="message-details">
                             <div className="detail-item">
@@ -196,10 +245,47 @@ const Messages = () => {
                                 <FaCalendarAlt className="detail-icon" />
                                 <p><strong>Date:</strong> {new Date(message.createdAt).toLocaleDateString()}</p>
                             </div>
+                            {message.reply && (
+                                <div className="detail-item reply">
+                                    <p><strong>Your Reply:</strong> {message.reply}</p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
             </div>
+
+            {replyModalOpen && (
+                <div className="modal-overlay" onClick={() => setReplyModalOpen(false)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h2>Reply to {selectedMessage?.name}</h2>
+                            <button className="close-button" onClick={() => setReplyModalOpen(false)}>
+                                <FaTimes />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleReplySubmit} className="reply-form">
+                            <div className="form-group">
+                                <label htmlFor="reply">Your Reply*</label>
+                                <textarea
+                                    id="reply"
+                                    value={replyText}
+                                    onChange={(e) => setReplyText(e.target.value)}
+                                    required
+                                    placeholder="Type your reply here..."
+                                />
+                            </div>
+
+                            <div className="form-actions">
+                                <button type="submit" className="submit-button">
+                                    Send Reply
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -269,6 +269,64 @@
   margin: 0;
 }
 
+.message-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reply-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.reply-button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.reply-button svg {
+  font-size: 1rem;
+}
+
+.detail-item.reply {
+  background-color: #f0f9ff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border-left: 4px solid #3b82f6;
+}
+
+.reply-form {
+  padding: 1.5rem;
+}
+
+.reply-form textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.reply-form textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
 @media (max-width: 768px) {
   .messages-container {
     padding: 1rem;
