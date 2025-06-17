@@ -52,8 +52,26 @@ const UploadNews = () => {
     setLoading(true);
 
     try {
-      // Here you would typically send the data to your backend
-      console.log('Submitting news:', newsData);
+      const formData = new FormData();
+      formData.append('title', newsData.title);
+      formData.append('category', newsData.category);
+      formData.append('content', newsData.content);
+      
+      // Append each media file to formData
+      newsData.media.forEach((file, index) => {
+        formData.append('media', file);
+      });
+
+      const response = await fetch('http://localhost:5000/api/news', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to upload news');
+      }
+
+      await response.json();
       alert('News published successfully!');
       
       // Reset form
@@ -65,7 +83,8 @@ const UploadNews = () => {
       });
       setPreview([]);
     } catch (error) {
-      alert('Error publishing news');
+      console.error('Error publishing news:', error);
+      alert('Error publishing news: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -179,4 +198,4 @@ const UploadNews = () => {
   );
 };
 
-export default UploadNews; 
+export default UploadNews;

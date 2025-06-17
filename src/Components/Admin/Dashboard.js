@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UploadNews from '../Pages/Dashboard/SideBarPages/UploadNews.js';
 import './Dashboard.css';
 import { 
   FaCalendarAlt, FaEnvelope, FaChartLine, FaClock, FaSignOutAlt, 
@@ -13,6 +12,7 @@ import Messages from '../Pages/Dashboard/SideBarPages/Messages.js';
 import Tasks from '../Pages/Dashboard/SideBarPages/Tasks.js';
 import Announcement from '../Pages/Dashboard/SideBarPages/Announcements.js';
 import Planning from '../Pages/Dashboard/SideBarPages/Planning.js';
+import News from '../Pages/Dashboard/SideBarPages/news.js';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Dashboard = () => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <FaChartBar /> },
     { id: 'tasks', label: 'Tasks', icon: <FaCheckCircle /> },
-    { id: 'upload-news', label: 'Upload News', icon: <FaNewspaper /> },
+    { id: 'News', label: 'News', icon: <FaNewspaper /> },
     { id: 'announcements', label: 'Announcements', icon: <FaBullhorn /> },
     { id: 'appointments', label: 'Appointments', icon: <FaCalendarCheck /> },
     { id: 'messages', label: 'Messages', icon: <FaComments /> },
@@ -245,9 +245,9 @@ const Dashboard = () => {
             </div>
           )}
 
-          {activeSection === 'upload-news' && (
+          {activeSection === 'News' && (
             <div className="section-content">
-              <UploadNews />
+              <News />
             </div>
           )}
 
